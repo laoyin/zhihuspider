@@ -70,7 +70,7 @@ email:
     server: smtp.163.com
     port: 587
     from: yinxingpan@163.com   #sendingemailaccount
-    password: yxp19932008          #youremailpasswd
+    password: "99"          #youremailpasswd
     to: yinxingpan@tmlsystem.com      #bind 139 email,so your phone will receive the warning message
     subject: Warning Of Weibo Spider
     warning_info: Please find out the reason why the spider stops working
