@@ -1,5 +1,10 @@
 # coding=utf-8
-
+from db.zhihu_data import get_zhihu_comment_not_crawled
+from db.zhihu_comment import save_comments
+from db.models import ZhihuComment
+from http_get_response.basic import get_page
+from bs4 import BeautifulSoup
+import json
 # get comment url, http ajax get.
 # https://www.zhihu.com/r/answers/3060403/comments
 # https://www.zhihu.com/r/answers/3060403/comments?page=2
@@ -7,6 +12,31 @@ def get_url(zhihu_data_id):
     url = "https://www.zhihu.com/r/answers/{0}/comments".format(zhihu_data_id)
     return url
 
+base_url = "https://www.zhihu.com/question/{0}"
+def get_comment_data():
+    zhihu_ids =  get_zhihu_comment_not_crawled()
+    for zhihu_id in zhihu_ids:
+        url  = base_url.format(zhihu_id)
+        page_content = get_page(url)
+        bs_content = BeautifulSoup(content)
+        jsdata  = bs_content.find(attrs={"id":"data"})
+        js_content_json = data["data-state"]
+        comment_ids = content_json['question']['answers'][id]['ids']
+        set_comments_data(comment_ids, content_json)
+
+def set_comments_data(comment_ids, content_json):
+    comments = []
+    for comment_id in comment_ids:
+        zhcomment = ZhihuComment()
+        comment_data = content_json['entities']['answers'][comment_id]
+        zhcomment.comment_id = comment_id
+        zhcomment.comment_cont = comment_data['content']
+        zhcomment.zhihu_id = comment_data['']
+        zhcomment.user_id = comment_data['']
+        zhcomment.create_time = comment_data['']
+        comments.append(zhcomment)
+    if comments:
+        save_comments(comments)
 # 解析html页面内容{  }
 # begin
 # url = question/id 
