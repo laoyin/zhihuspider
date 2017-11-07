@@ -31,9 +31,9 @@ def set_comments_data(comment_ids, content_json):
         comment_data = content_json['entities']['answers'][comment_id]
         zhcomment.comment_id = comment_id
         zhcomment.comment_cont = comment_data['content']
-        zhcomment.zhihu_id = comment_data['']
-        zhcomment.user_id = comment_data['']
-        zhcomment.create_time = comment_data['']
+        zhcomment.zhihu_id = comment_data['id']
+        zhcomment.user_id = comment_data['author']['id']
+        zhcomment.create_time = comment_data['createdTime']
         comments.append(zhcomment)
     if comments:
         save_comments(comments)
@@ -53,7 +53,7 @@ def set_comments_data(comment_ids, content_json):
 # # 后去具体答案内容
 # for id in ids:
 #     content_json['entities']['answers'][id]
-#     {'content': '短期利好，英镑贬值，长期利空，英镑升值。<br>感觉欧盟就是个炸弹啊。<br>还有美国都这样子了，还敢加利的话。亏钱我也乐意啊。:)', 'createdTime': 1466477739, 'editableContent': '', 'adminClosedComment': False, 'isSticky': False, 'relationship': {'isNothelp': False, 'voting': 0, 'isAuthorized': False, 'isThanked': False, 'isAuthor': False, 'upvotedFollowees': []}, 'commentCount': 0, 'isCollapsed': False, 'type': 'answer', 'suggestEdit': {'unnormalDetails': {}, 'tip': '', 'url': '', 'status': False, 'reason': '', 'title': ''}, 'commentPermission': 'all', 'annotationAction': [], 'voteupCount': 1, 'isNormal': True, 'canComment': {'status': True, 'reason': ''}, 'reshipmentSettings': 'allowed', 'collapseReason': '', 'excerpt': '短期利好，英镑贬值，长期利空，英镑升值。 感觉欧盟就是个炸弹啊。 还有美国都这样子了，还敢加利的话。亏钱我也乐意啊。:)', 'id': 107036636, 'isCopyable': True, 'rewardInfo': {'rewardMemberCount': 0, 'isRewardable': False, 'canOpenReward': False, 'rewardTotalMoney': 0, 'tagline': ''}, 'updatedTime': 1466477739, 'author': {'gender': 1, 'avatarUrl': 'https://pic1.zhimg.com/50/da8e974dc_hd.jpg', 'isAdvertiser': False, 'avatarUrlTemplate': 'https://pic1.zhimg.com/50/da8e974dc_hd.jpg', 'headline': '', 'type': 'people', 'id': '3b98c670721025670e3ea6fe5c864397', 'followerCount': 7, 'userType': 'people', 'name': '李李', 'badge': [], 'url': 'http://www.zhihu.com/api/v4/people/3b98c670721025670e3ea6fe5c864397', 'urlToken': 'li-li-80-62', 'isOrg': False}, 'collapsedBy': 'nobody', 'url': 'http://www.zhihu.com/api/v4/answers/107036636', 'question': {'questionType': 'normal', 'type': 'question', 'updatedTime': 1464461507, 'url': 'http://www.zhihu.com/api/v4/questions/46866343', 'created': 1464461507, 'id': 46866343, 'title': '英国脱欧对黄金会有影响吗？'}, 'markInfos': [], 'thumbnail': '', 'extras': ''}
+    # {'content': '短期利好，英镑贬值，长期利空，英镑升值。<br>感觉欧盟就是个炸弹啊。<br>还有美国都这样子了，还敢加利的话。亏钱我也乐意啊。:)', 'createdTime': 1466477739, 'editableContent': '', 'adminClosedComment': False, 'isSticky': False, 'relationship': {'isNothelp': False, 'voting': 0, 'isAuthorized': False, 'isThanked': False, 'isAuthor': False, 'upvotedFollowees': []}, 'commentCount': 0, 'isCollapsed': False, 'type': 'answer', 'suggestEdit': {'unnormalDetails': {}, 'tip': '', 'url': '', 'status': False, 'reason': '', 'title': ''}, 'commentPermission': 'all', 'annotationAction': [], 'voteupCount': 1, 'isNormal': True, 'canComment': {'status': True, 'reason': ''}, 'reshipmentSettings': 'allowed', 'collapseReason': '', 'excerpt': '短期利好，英镑贬值，长期利空，英镑升值。 感觉欧盟就是个炸弹啊。 还有美国都这样子了，还敢加利的话。亏钱我也乐意啊。:)', 'id': 107036636, 'isCopyable': True, 'rewardInfo': {'rewardMemberCount': 0, 'isRewardable': False, 'canOpenReward': False, 'rewardTotalMoney': 0, 'tagline': ''}, 'updatedTime': 1466477739, 'author': {'gender': 1, 'avatarUrl': 'https://pic1.zhimg.com/50/da8e974dc_hd.jpg', 'isAdvertiser': False, 'avatarUrlTemplate': 'https://pic1.zhimg.com/50/da8e974dc_hd.jpg', 'headline': '', 'type': 'people', 'id': '3b98c670721025670e3ea6fe5c864397', 'followerCount': 7, 'userType': 'people', 'name': '李李', 'badge': [], 'url': 'http://www.zhihu.com/api/v4/people/3b98c670721025670e3ea6fe5c864397', 'urlToken': 'li-li-80-62', 'isOrg': False}, 'collapsedBy': 'nobody', 'url': 'http://www.zhihu.com/api/v4/answers/107036636', 'question': {'questionType': 'normal', 'type': 'question', 'updatedTime': 1464461507, 'url': 'http://www.zhihu.com/api/v4/questions/46866343', 'created': 1464461507, 'id': 46866343, 'title': '英国脱欧对黄金会有影响吗？'}, 'markInfos': [], 'thumbnail': '', 'extras': ''}
 
 # end
 
