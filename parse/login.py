@@ -4,6 +4,7 @@ import requests,re,time,pdb
 import http.cookiejar as cookielib
 from bs4 import BeautifulSoup
 from http_get_response.header import headers
+from db.redis_db import Cookies
 
 #登陆类
 class Login:
@@ -81,6 +82,6 @@ class Login:
             print('直接登陆失败!')
             post_data['captcha'] = self.getCaptcha()
             login_page = self.session.post(post_url,headers = headers,data = post_data)
-            Cookies.store_cookies(user_name, session.cookies.get_dict())
+            Cookies.store_cookies(user_name, self.session.cookies.get_dict())
             login_code = eval(login_page.text)
             print(login_code['msg'])

@@ -42,7 +42,7 @@ db:
     port: 3306
     user: root
     password: root
-    db_name: weibo
+    db_name: zhihu
     db_type: mysql
 
 redis:

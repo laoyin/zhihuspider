@@ -11,6 +11,15 @@ with open(config_path, encoding='utf-8') as f:
 
 cf = load(cont)
 
+def get_crawl_interal():
+    interal = random.randint(cf.get('min_crawl_interal'), cf.get('max_crawl_interal'))
+    return interal
+
+def get_excp_interal():
+    return cf.get('excp_interal')
+
+def get_max_retries():
+    return cf.get('max_retries')
 
 def get_db_args():
     return {

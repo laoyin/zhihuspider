@@ -7,6 +7,37 @@ def get_url(zhihu_data_id):
     url = "https://www.zhihu.com/r/answers/{0}/comments".format(zhihu_data_id)
     return url
 
+# 解析html页面内容{  }
+# begin
+# url = question/id 
+# content = get_url_result(url)
+# # 获取js内容
+# data  = BeautifulSoup(content).find(attrs={"id":"data"})
+# # 截取js中json
+# js_content_json = data["data-state"]
+# content_json = json.loads(js_content_json)
+
+# # 获取答案的id
+# ids = content_json['question']['answers'][id]['ids']
+
+# # 后去具体答案内容
+# for id in ids:
+#     content_json['entities']['answers'][id]
+#     {'content': '短期利好，英镑贬值，长期利空，英镑升值。<br>感觉欧盟就是个炸弹啊。<br>还有美国都这样子了，还敢加利的话。亏钱我也乐意啊。:)', 'createdTime': 1466477739, 'editableContent': '', 'adminClosedComment': False, 'isSticky': False, 'relationship': {'isNothelp': False, 'voting': 0, 'isAuthorized': False, 'isThanked': False, 'isAuthor': False, 'upvotedFollowees': []}, 'commentCount': 0, 'isCollapsed': False, 'type': 'answer', 'suggestEdit': {'unnormalDetails': {}, 'tip': '', 'url': '', 'status': False, 'reason': '', 'title': ''}, 'commentPermission': 'all', 'annotationAction': [], 'voteupCount': 1, 'isNormal': True, 'canComment': {'status': True, 'reason': ''}, 'reshipmentSettings': 'allowed', 'collapseReason': '', 'excerpt': '短期利好，英镑贬值，长期利空，英镑升值。 感觉欧盟就是个炸弹啊。 还有美国都这样子了，还敢加利的话。亏钱我也乐意啊。:)', 'id': 107036636, 'isCopyable': True, 'rewardInfo': {'rewardMemberCount': 0, 'isRewardable': False, 'canOpenReward': False, 'rewardTotalMoney': 0, 'tagline': ''}, 'updatedTime': 1466477739, 'author': {'gender': 1, 'avatarUrl': 'https://pic1.zhimg.com/50/da8e974dc_hd.jpg', 'isAdvertiser': False, 'avatarUrlTemplate': 'https://pic1.zhimg.com/50/da8e974dc_hd.jpg', 'headline': '', 'type': 'people', 'id': '3b98c670721025670e3ea6fe5c864397', 'followerCount': 7, 'userType': 'people', 'name': '李李', 'badge': [], 'url': 'http://www.zhihu.com/api/v4/people/3b98c670721025670e3ea6fe5c864397', 'urlToken': 'li-li-80-62', 'isOrg': False}, 'collapsedBy': 'nobody', 'url': 'http://www.zhihu.com/api/v4/answers/107036636', 'question': {'questionType': 'normal', 'type': 'question', 'updatedTime': 1464461507, 'url': 'http://www.zhihu.com/api/v4/questions/46866343', 'created': 1464461507, 'id': 46866343, 'title': '英国脱欧对黄金会有影响吗？'}, 'markInfos': [], 'thumbnail': '', 'extras': ''}
+
+# end
+
+# 解析点击页面获取列表内容
+
+# 1:zhihu渲染页面，采用的方式，html渲染3条,
+# 2:使用ajax https://www.zhihu.com/api/v4/questions/56620658/answers?include=data%5B*%5D.is_normal%2Cadmin_closed_comment%2Creward_info%2Cis_collapsed%2Cannotation_action%2Cannotation_detail%2Ccollapse_reason%2Cis_sticky%2Ccollapsed_by%2Csuggest_edit%2Ccomment_count%2Ccan_comment%2Ccontent%2Ceditable_content%2Cvoteup_count%2Creshipment_settings%2Ccomment_permission%2Ccreated_time%2Cupdated_time%2Creview_info%2Cquestion%2Cexcerpt%2Crelationship.is_authorized%2Cis_author%2Cvoting%2Cis_thanked%2Cis_nothelp%2Cupvoted_followees%3Bdata%5B*%5D.mark_infos%5B*%5D.url%3Bdata%5B*%5D.author.follower_count%2Cbadge%5B%3F(type%3Dbest_answerer)%5D.topics&offset=3&limit=20&sort_by=default
+
+
+# get 请求:
+# include:data[*].is_normal,admin_closed_comment,reward_info,is_collapsed,annotation_action,annotation_detail,collapse_reason,is_sticky,collapsed_by,suggest_edit,comment_count,can_comment,content,editable_content,voteup_count,reshipment_settings,comment_permission,created_time,updated_time,review_info,question,excerpt,relationship.is_authorized,is_author,voting,is_thanked,is_nothelp,upvoted_followees;data[*].mark_infos[*].url;data[*].author.follower_count,badge[?(type=best_answerer)].topics
+# offset:3
+# limit:20
+# sort_by:default
 
 
 # Remote Address:118.178.213.186:443
