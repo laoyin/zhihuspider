@@ -16,19 +16,45 @@ base_url = "https://www.zhihu.com/question/{0}"
 def get_comment_data():
     zhihu_ids =  get_zhihu_comment_not_crawled()
     for zhihu_id in zhihu_ids[1:]:
+        # try:
+        #     url  = base_url.format(zhihu_id[0])
+        #     page_content = get_page(url)
+        #     bs_content = BeautifulSoup(page_content)
+        #     jsdata  = bs_content.find(attrs={"id":"data"})
+        #     js_content_json = json.loads(jsdata["data-state"])
+        #     comment_ids = js_content_json['question']['answers'][zhihu_id[0]]['ids']
+        #     set_comments_data(comment_ids, js_content_json)
+        # except Exception as e:
+        #     print(e)
+        #     continue
+
         try:
-            url  = base_url.format(zhihu_id[0])
-            page_content = get_page(url)
-            bs_content = BeautifulSoup(page_content)
-            jsdata  = bs_content.find(attrs={"id":"data"})
-            js_content_json = json.loads(jsdata["data-state"])
-            comment_ids = js_content_json['question']['answers'][zhihu_id[0]]['ids']
-            set_comments_data(comment_ids, js_content_json)
+            zhihu_id = zhihu_id[0]
+            get_ajax_comment_data(zhihu_id)
         except Exception as e:
             print(e)
             continue
 
 
+ajax_url = "https://www.zhihu.com/api/v4/questions/{0}/answers?include=data%5B*%5D.is_normal%2Cadmin_closed_comment%2Creward_info%2Cis_collapsed%2Cannotation_action%2Cannotation_detail%2Ccollapse_reason%2Cis_sticky%2Ccollapsed_by%2Csuggest_edit%2Ccomment_count%2Ccan_comment%2Ccontent%2Ceditable_content%2Cvoteup_count%2Creshipment_settings%2Ccomment_permission%2Ccreated_time%2Cupdated_time%2Creview_info%2Cquestion%2Cexcerpt%2Crelationship.is_authorized%2Cis_author%2Cvoting%2Cis_thanked%2Cis_nothelp%2Cupvoted_followees%3Bdata%5B*%5D.mark_infos%5B*%5D.url%3Bdata%5B*%5D.author.follower_count%2Cbadge%5B%3F(type%3Dbest_answerer)%5D.topics&offset={1}&limit={2}&sort_by=default"
+def get_ajax_comment_data(zhihu_id):
+    # pdb.set_trace()
+    limit = 20
+    offset = 3
+    search_ajax_url = ajax_url.format(zhihu_id, offset, limit)
+    is_end = False
+    while (not is_end):
+        try:
+            page_content = get_page(search_ajax_url)
+            print(page_content)
+            json_content = json.loads(page_content)
+            is_end = json_content['paging']['is_end']
+            search_ajax_url = json_content['paging']['next']
+            set_ajax_comments_data(zhihu_id, json_content['data'])
+        except Exception as e:
+            print(e)
+            is_end = True
+        
 def set_comments_data(comment_ids, content_json):
     comments = []
     for comment_id in comment_ids:
@@ -44,6 +70,21 @@ def set_comments_data(comment_ids, content_json):
         comments.append(zhcomment)
     if comments:
         save_comments(comments)
+
+def set_ajax_comments_data(zhihu_id, datas):
+    comments = []
+    for data in datas:
+        zhcomment = ZhihuComment()
+        zhcomment.comment_id = data['id']
+        zhcomment.comment_cont = data['content']
+        zhcomment.create_time = data['created_time']
+        zhcomment.zhihu_id = zhihu_id
+        zhcomment.user_id = data["author"]['id']
+        comments.append(zhcomment)
+    if comments:
+        save_comments(comments)
+
+
 # 解析html页面内容{  }
 # begin
 # url = question/id 
