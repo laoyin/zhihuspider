@@ -21,8 +21,8 @@ def get_comment_data():
             page_content = get_page(url)
             bs_content = BeautifulSoup(page_content)
             jsdata  = bs_content.find(attrs={"id":"data"})
-            js_content_json = jsdata["data-state"]
-            comment_ids = js_content_json['question']['answers'][id]['ids']
+            js_content_json = json.loads(jsdata["data-state"])
+            comment_ids = js_content_json['question']['answers'][zhihu_id[0]]['ids']
             set_comments_data(comment_ids, js_content_json)
         except Exception as e:
             print(e)
@@ -32,6 +32,7 @@ def get_comment_data():
 def set_comments_data(comment_ids, content_json):
     comments = []
     for comment_id in comment_ids:
+        comment_id = str(comment_id)
         zhcomment = ZhihuComment()
         comment_data = content_json['entities']['answers'][comment_id]
         zhcomment.comment_id = comment_id
