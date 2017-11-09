@@ -13,28 +13,16 @@ import json,pdb
 #     return url
 
 def get_ajax_url(answer_id):
-    url = "https://www.zhihu.com/r/answers/{0}/comments".format(answer_id)
+    url = "https://www.zhihu.com/api/v4/answers/{0}/comments?include=data%5B*%5D.author%2Ccollapsed%2Creply_to_author%2Cdisliked%2Ccontent%2Cvoting%2Cvote_count%2Cis_parent_author%2Cis_author&order=normal&limit=20&offset=0&status=open"
+    url = url.format(answer_id)
     return url
 
-def get_answer_comments():
-    comment_ids = get_zhihu_answer_comment_not_crawled()
-    for comment_id in comment_ids:
-        try:
-            comment_id = comment_id[0]
-            get_ajax_comment_data(comment_id)
-        except Exception as e:
-            print(e)
-            continue
-
 def get_ajax_comment_data(comment_id):
-    pdb.set_trace()
-    comment_id = '75533120'
     limit = 20
     offset = 0
-    # search_ajax_url = get_ajax_url(comment_id)
-    search_ajax_url = "https://www.zhihu.com/api/v4/answers/75533120/comments?include=data%5B*%5D.author%2Ccollapsed%2Creply_to_author%2Cdisliked%2Ccontent%2Cvoting%2Cvote_count%2Cis_parent_author%2Cis_author&order=normal&limit=20&offset=0&status=open"
+    search_ajax_url = get_ajax_url(comment_id)
+    # search_ajax_url = "https://www.zhihu.com/api/v4/answers/75533120/comments?include=data%5B*%5D.author%2Ccollapsed%2Creply_to_author%2Cdisliked%2Ccontent%2Cvoting%2Cvote_count%2Cis_parent_author%2Cis_author&order=normal&limit=20&offset=0&status=open"
     is_end = False
-    pdb.set_trace()
     while (not is_end):
         try:
             page_content = get_page(search_ajax_url)
