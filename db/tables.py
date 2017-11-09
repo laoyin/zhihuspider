@@ -51,4 +51,15 @@ zhihu_comment = Table('zhihu_comment', metadata,
                       Column("zhihu_id", String(200)),
                       Column("user_id", String(20)),
                       Column("create_time", String(200)),
+                      Column("comment_crawled", INTEGER, default=0, server_default='0'),
+                      )
+
+
+zhihu_reply = Table('zhihu_reply', metadata,
+                      Column("id", INTEGER, primary_key=True, autoincrement=True),
+                      Column("comment_id", String(50)),
+                      Column("reply_id", String(50)),
+                      Column("reply_cont", Text),
+                      Column("user_id", String(20)),
+                      Column("create_time", String(200)),                    
                       )
