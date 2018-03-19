@@ -16,3 +16,6 @@ class KeyWordsZhdata(Base):
 
 class ZhihuComment(Base):
     __table__ = zhihu_comment
+
+class ZhihuReply(Base):
+    __table__ = zhihu_reply
