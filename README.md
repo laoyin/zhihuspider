@@ -22,3 +22,9 @@ init_sql_table.py 创建db下定义的表格。
 crawl_answer.py 抓取ZhihuData下 comment_crawled为0的问题答案
 crawl_reply.py 抓取答案的评论
 <!-- 2017-11-07 获取评论的评论。 -->
+
+
+
+
+下一个阶段： 使用深度学习tensorflow框架，CNN，进行知乎验证码识别，
+自动识别验证码。
